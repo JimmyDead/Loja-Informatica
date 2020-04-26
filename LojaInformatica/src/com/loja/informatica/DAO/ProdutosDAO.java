@@ -178,6 +178,47 @@ public class ProdutosDAO {
 
         
     }
+    
+    public void excluirProduto(int ID){
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        
+        try {
+            ConexaoMYSQL conexaoSQL = new ConexaoMYSQL();
+            
+            conexao = conexaoSQL.abrirConexao();
+            
+            instrucaoSQL = conexao.prepareStatement("DELETE FROM produtosInformatica WHERE id = ?");
+            instrucaoSQL.setInt(1, ID);
+            
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+            
+        if (linhasAfetadas > 0) {
+                retorno = true;
+            } else {
+                retorno = false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            retorno = false;
+        } finally {
+
+            try {
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                ConexaoMYSQL conexaoSQL = new ConexaoMYSQL();
+                conexaoSQL.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+        
+        
+    }
 
     public static ArrayList<Produtos> buscarProduto(String produto) {
 
