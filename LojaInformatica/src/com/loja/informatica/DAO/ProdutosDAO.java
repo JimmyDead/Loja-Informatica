@@ -128,7 +128,7 @@ public class ProdutosDAO {
         return listaProdutos;
     }
 
-    public static boolean atualizarProduto(Produtos produto) {
+    public void atualizarProduto(Produtos produto) {
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -176,7 +176,7 @@ public class ProdutosDAO {
             }
         }
 
-        return retorno;
+        
     }
 
     public static ArrayList<Produtos> buscarProduto(String produto) {
