@@ -23,6 +23,7 @@ public class LojaInformatica extends javax.swing.JFrame {
     public LojaInformatica() {
         initComponents();
         setLocationRelativeTo(null);
+        buttonInserirAlteracao.setVisible(false);
         carregarTabela();
     }
 
@@ -61,6 +62,19 @@ public class LojaInformatica extends javax.swing.JFrame {
             });
         }
 
+    }
+
+    public void limparCampos() {
+        fieldPesquisar.setText("");
+        fieldComputador.setText("");
+        fieldHD.setText("");
+        fieldProcessador.setText("");
+        fieldMemoriaRam.setText("");
+        fieldGabinete.setText("");
+        fieldCooler.setText("");
+        fieldMouse.setText("");
+        fieldTeclado.setText("");
+        fieldHeadSet.setText("");
     }
 
     /**
@@ -127,6 +141,7 @@ public class LojaInformatica extends javax.swing.JFrame {
         fieldTeclado = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         fieldHeadSet = new javax.swing.JTextField();
+        buttonInserirAlteracao = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaBancoDados = new javax.swing.JTable();
@@ -366,6 +381,16 @@ public class LojaInformatica extends javax.swing.JFrame {
 
         buttonAlterar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         buttonAlterar.setText("Alterar");
+        buttonAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonAlterarMouseClicked(evt);
+            }
+        });
+        buttonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAlterarActionPerformed(evt);
+            }
+        });
 
         buttonPesquisar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         buttonPesquisar.setText("Pesquisar:");
@@ -393,6 +418,14 @@ public class LojaInformatica extends javax.swing.JFrame {
 
         jLabel17.setText("HeadSet:");
 
+        buttonInserirAlteracao.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        buttonInserirAlteracao.setText("Inserir Alteração");
+        buttonInserirAlteracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInserirAlteracaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -405,7 +438,10 @@ public class LojaInformatica extends javax.swing.JFrame {
                     .addComponent(buttonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(fieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonInserirAlteracao))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
@@ -444,16 +480,17 @@ public class LojaInformatica extends javax.swing.JFrame {
                                 .addComponent(jLabel17)
                                 .addGap(18, 18, 18)
                                 .addComponent(fieldHeadSet, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fieldPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                    .addComponent(fieldPesquisar)
+                    .addComponent(buttonInserirAlteracao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAlterar)
                     .addComponent(jLabel9)
@@ -629,80 +666,156 @@ public class LojaInformatica extends javax.swing.JFrame {
 
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
 
-        ArrayList<Produtos> listaProdutos = ProdutosDAO.buscarProduto(fieldPesquisar.getText());
-        DefaultTableModel tabelaProdutos = new DefaultTableModel();
+        if (fieldPesquisar.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo de pesquisar em branco", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
 
-        tabelaProdutos.addColumn("ID");
-        tabelaProdutos.addColumn("Computador");
-        tabelaProdutos.addColumn("Armazenamento");
-        tabelaProdutos.addColumn("Processador");
-        tabelaProdutos.addColumn("Memoria Ram");
-        tabelaProdutos.addColumn("Gabinete");
-        tabelaProdutos.addColumn("Cooler");
-        tabelaProdutos.addColumn("Mouse");
-        tabelaProdutos.addColumn("Teclado");
-        tabelaProdutos.addColumn("HeadSet");
+            buttonAlterar.setEnabled(true);
+            buttonInserirAlteracao.setVisible(false);
 
-        tabelaBancoDados.setModel(tabelaProdutos);
+            ArrayList<Produtos> listaProdutos = ProdutosDAO.buscarProduto(fieldPesquisar.getText());
+            DefaultTableModel tabelaProdutos = new DefaultTableModel();
 
-        tabelaProdutos.setRowCount(0);
+            tabelaProdutos.addColumn("ID");
+            tabelaProdutos.addColumn("Computador");
+            tabelaProdutos.addColumn("Armazenamento");
+            tabelaProdutos.addColumn("Processador");
+            tabelaProdutos.addColumn("Memoria Ram");
+            tabelaProdutos.addColumn("Gabinete");
+            tabelaProdutos.addColumn("Cooler");
+            tabelaProdutos.addColumn("Mouse");
+            tabelaProdutos.addColumn("Teclado");
+            tabelaProdutos.addColumn("HeadSet");
 
-        for (Produtos produtos : listaProdutos) {
-            tabelaProdutos.addRow(new Object[]{
-                produtos.getId(),
-                produtos.getComputador(),
-                produtos.getArmazenamento(),
-                produtos.getProcessador(),
-                produtos.getMemoriaRAM(),
-                produtos.getGabinete(),
-                produtos.getCooler(),
-                produtos.getMouse(),
-                produtos.getTeclado(),
-                produtos.getHeadSet()
-            });
-        }
+            tabelaBancoDados.setModel(tabelaProdutos);
 
-        
+            tabelaProdutos.setRowCount(0);
+
+            for (Produtos produtos : listaProdutos) {
+                tabelaProdutos.addRow(new Object[]{
+                    produtos.getId(),
+                    produtos.getComputador(),
+                    produtos.getArmazenamento(),
+                    produtos.getProcessador(),
+                    produtos.getMemoriaRAM(),
+                    produtos.getGabinete(),
+                    produtos.getCooler(),
+                    produtos.getMouse(),
+                    produtos.getTeclado(),
+                    produtos.getHeadSet()
+                });
+            }
+
+            try {
+                int pesquisar = Integer.parseInt(fieldPesquisar.getText());
+
+                if (pesquisar > 0) {
+                    fieldComputador.setEnabled(false);
+                    fieldHD.setEnabled(false);
+                    fieldProcessador.setEnabled(false);
+                    fieldMemoriaRam.setEnabled(false);
+                    fieldGabinete.setEnabled(false);
+                    fieldCooler.setEnabled(false);
+                    fieldMouse.setEnabled(false);
+                    fieldTeclado.setEnabled(false);
+                    fieldHeadSet.setEnabled(false);
+
+                    for (int i = 0; i < tabelaProdutos.getColumnCount(); i++) {
+                        fieldComputador.setText(tabelaProdutos.getValueAt(i, 1).toString());
+                        fieldHD.setText(tabelaProdutos.getValueAt(i, 2).toString());
+                        fieldProcessador.setText(tabelaProdutos.getValueAt(i, 3).toString());
+                        fieldMemoriaRam.setText(tabelaProdutos.getValueAt(i, 4).toString());
+                        fieldGabinete.setText(tabelaProdutos.getValueAt(i, 5).toString());
+                        fieldCooler.setText(tabelaProdutos.getValueAt(i, 6).toString());
+                        fieldMouse.setText(tabelaProdutos.getValueAt(i, 7).toString());
+                        fieldTeclado.setText(tabelaProdutos.getValueAt(i, 8).toString());
+                        fieldHeadSet.setText(tabelaProdutos.getValueAt(i, 9).toString());
+                    }
+
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.print("");
+            } catch (NullPointerException e) {
+                System.out.print("");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.print("");
+            }
+
+        } // FIM ELSE
+    }//GEN-LAST:event_buttonPesquisarActionPerformed
+
+    private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
+
         try {
             int pesquisar = Integer.parseInt(fieldPesquisar.getText());
 
             if (pesquisar > 0) {
-                fieldComputador.setEnabled(false);
-                fieldHD.setEnabled(false);
-                fieldProcessador.setEnabled(false);
-                fieldMemoriaRam.setEnabled(false);
-                fieldGabinete.setEnabled(false);
-                fieldCooler.setEnabled(false);
-                fieldMouse.setEnabled(false);
-                fieldTeclado.setEnabled(false);
-                fieldHeadSet.setEnabled(false);
-                
-                for (int i = 0; i < tabelaProdutos.getColumnCount(); i++) {
-                    fieldComputador.setText(tabelaProdutos.getValueAt(i, 1).toString());
-                    fieldHD.setText(tabelaProdutos.getValueAt(i, 2).toString());
-                    fieldProcessador.setText(tabelaProdutos.getValueAt(i, 3).toString());
-                    fieldMemoriaRam.setText(tabelaProdutos.getValueAt(i, 4).toString());
-                    fieldGabinete.setText(tabelaProdutos.getValueAt(i, 5).toString());
-                    fieldCooler.setText(tabelaProdutos.getValueAt(i, 6).toString());
-                    fieldMouse.setText(tabelaProdutos.getValueAt(i, 7).toString());
-                    fieldTeclado.setText(tabelaProdutos.getValueAt(i, 8).toString());
-                    fieldHeadSet.setText(tabelaProdutos.getValueAt(i, 9).toString());
-                }
-                
-                
+                fieldComputador.setEnabled(true);
+                fieldHD.setEnabled(true);
+                fieldProcessador.setEnabled(true);
+                fieldMemoriaRam.setEnabled(true);
+                fieldGabinete.setEnabled(true);
+                fieldCooler.setEnabled(true);
+                fieldMouse.setEnabled(true);
+                fieldTeclado.setEnabled(true);
+                fieldHeadSet.setEnabled(true);
 
+                JOptionPane.showMessageDialog(this, "Modo de alteração!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                buttonInserirAlteracao.setVisible(true);
+                buttonAlterar.setEnabled(false);
+                buttonExcluir.setEnabled(false);
             }
 
-        } catch (NumberFormatException e ) {
-            System.out.println("");
-        }catch(NullPointerException e){
-            System.out.println("");
-        }catch(ArrayIndexOutOfBoundsException e){
-            System.out.println("");
+        } catch (NumberFormatException e) {
+            System.out.print("");
+        } catch (NullPointerException e) {
+            System.out.print("");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print("");
         }
 
 
-    }//GEN-LAST:event_buttonPesquisarActionPerformed
+    }//GEN-LAST:event_buttonAlterarActionPerformed
+
+    private void buttonAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAlterarMouseClicked
+
+    }//GEN-LAST:event_buttonAlterarMouseClicked
+
+    private void buttonInserirAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInserirAlteracaoActionPerformed
+        Produtos produtos = new Produtos();
+        produtos.setComputador(fieldComputador.getText());
+        produtos.setArmazenamento(fieldHD.getText());
+        produtos.setProcessador(fieldProcessador.getText());
+        produtos.setMemoriaRAM(fieldMemoriaRam.getText());
+        produtos.setGabinete(fieldGabinete.getText());
+        produtos.setCooler(fieldCooler.getText());
+        produtos.setMouse(fieldMouse.getText());
+        produtos.setTeclado(fieldTeclado.getText());
+        produtos.setHeadSet(fieldHeadSet.getText());
+
+        try {
+            produtos.setId(Integer.parseInt(fieldPesquisar.getText()));
+        } catch (NumberFormatException e) {
+            System.out.print("");
+        }
+
+        try {
+
+            ProdutosDAO produtosDAO = new ProdutosDAO();
+            produtosDAO.atualizarProduto(produtos);
+            JOptionPane.showMessageDialog(this, "Alterado com Sucesso!", "Alterado", JOptionPane.INFORMATION_MESSAGE);
+            buttonInserirAlteracao.setVisible(false);
+            buttonAlterar.setEnabled(true);
+            buttonExcluir.setEnabled(true);
+            limparCampos();
+            carregarTabela();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_buttonInserirAlteracaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -745,6 +858,7 @@ public class LojaInformatica extends javax.swing.JFrame {
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonFinalizarCompra;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton buttonInserirAlteracao;
     private javax.swing.JButton buttonPesquisar;
     private javax.swing.JCheckBox checkBoxDesktop;
     private javax.swing.JCheckBox checkBoxNotebook;
