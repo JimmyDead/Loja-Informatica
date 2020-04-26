@@ -24,6 +24,8 @@ public class LojaInformatica extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         buttonInserirAlteracao.setVisible(false);
+        buttonAlterar.setEnabled(false);
+        buttonExcluir.setEnabled(false);
         carregarTabela();
     }
 
@@ -75,6 +77,90 @@ public class LojaInformatica extends javax.swing.JFrame {
         fieldMouse.setText("");
         fieldTeclado.setText("");
         fieldHeadSet.setText("");
+    }
+
+    public boolean validarCampos() {
+        boolean camposOK = false;
+        boolean campo_1 = true;
+        boolean campo_2 = true;
+        boolean campo_3 = true;
+        boolean campo_4 = true;
+        boolean campo_5 = true;
+        boolean campo_6 = true;
+        boolean campo_7 = true;
+        boolean campo_8 = true;
+        boolean campo_9 = true;
+
+        if (fieldComputador.getText().equals("")) {
+            fieldComputador.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Computador vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_1 = false;
+        } else {
+            campo_1 = true;
+        }
+        if (fieldHD.getText().equals("")) {
+            fieldHD.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Amazenamento vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_2 = false;
+        } else {
+            campo_2 = true;
+        }
+        if (fieldProcessador.getText().equals("")) {
+            fieldProcessador.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Processador vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_3 = false;
+        } else {
+            campo_3 = true;
+        }
+        if (fieldMemoriaRam.getText().equals("")) {
+            fieldMemoriaRam.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Memoria Ram vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_4 = false;
+        } else {
+            campo_4 = true;
+        }
+        if (fieldGabinete.getText().equals("")) {
+            fieldGabinete.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Gabinete vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_5 = false;
+        } else {
+            campo_5 = true;
+        }
+        if (fieldCooler.getText().equals("")) {
+            fieldCooler.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Cooler vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_6 = false;
+        } else {
+            campo_6 = true;
+        }
+        if (fieldMouse.getText().equals("")) {
+            fieldMouse.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Mouse vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_7 = false;
+        } else {
+            campo_7 = true;
+        }
+        if (fieldTeclado.getText().equals("")) {
+            fieldTeclado.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo Teclado vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_8 = false;
+        } else {
+            campo_8 = true;
+        }
+        if (fieldHeadSet.getText().equals("")) {
+            fieldHeadSet.requestFocus();
+            JOptionPane.showMessageDialog(this, "Campo HeadSet vazio!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            campo_9 = false;
+        } else {
+            campo_9 = true;
+        }
+
+        if (campo_1 == true && campo_2 == true && campo_3 == true && campo_4 == true && campo_5 == true && campo_6 == true
+                && campo_7 == true && campo_8 == true && campo_9 == true) {
+            camposOK = true;
+        }
+
+        return camposOK;
     }
 
     /**
@@ -142,6 +228,7 @@ public class LojaInformatica extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         fieldHeadSet = new javax.swing.JTextField();
         buttonInserirAlteracao = new javax.swing.JButton();
+        buttonAtualizarTabela = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaBancoDados = new javax.swing.JTable();
@@ -202,9 +289,9 @@ public class LojaInformatica extends javax.swing.JFrame {
 
         jLabel2.setText("Processador:");
 
-        comboBoxGabinete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aerocool Xpredator", "Aerocool Aero 500", "Cooler Master Masterbox 5", "Cooler Master Cosmos C700P", "Cougar Conquer Essence", "Cougar Archon", "NZXT H500", "Thermaltake Core P5 TG Titanium Edition", "Thermaltake Core X1", " " }));
+        comboBoxGabinete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aerocool Xpredator", "Aerocool Aero 500", "Cooler Master Masterbox 5", "Cooler Master Cosmos C700P", "Cougar Conquer Essence", "Cougar Archon", "NZXT H500", "Thermaltake Core P5 TG Titanium Edition", "Thermaltake Core X1" }));
 
-        comboBoxCooler.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cooler Master Hyper H412R", "Cooler Master Masteriquid Lite ", "Deepcool Gammaxx 400", "Deepcool Storm Lucifer V2", "Masterair MA610P", "Noctua NH-D15", "PCYes Sangue Frio", "Thermaltake Water 3.0 Riing ", "Water cooler Corsair H45 Hydro", "Water cooler Corsair H100i Pro", " " }));
+        comboBoxCooler.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cooler Master Hyper H412R", "Cooler Master Masteriquid Lite ", "Deepcool Gammaxx 400", "Deepcool Storm Lucifer V2", "Masterair MA610P", "Noctua NH-D15", "PCYes Sangue Frio", "Thermaltake Water 3.0 Riing ", "Water cooler Corsair H45 Hydro", "Water cooler Corsair H100i Pro" }));
 
         jLabel3.setText("Memoria RAM:");
 
@@ -214,7 +301,7 @@ public class LojaInformatica extends javax.swing.JFrame {
 
         comboBoxMouse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cougar Revenger", "Cooler Master Mastermouse S", "Razer DeathAdder Elite", "Logitech G502 Proteus Spectrum", "Logitech G903", "Logitech G403", "Sharkoon Shark Force", "Zowie FK2" }));
 
-        comboBoxTeclado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dazz Rapidfire", "HyperX Mars", "HyperX Mecânico Alloy FPS", "HyperX Alloy FPS Pro Red", "Redragon Harpe RGB K503RGB", "T MasterKeys Pro M RGB", "Warrior Gamer Laser", " Warrior TC208", " " }));
+        comboBoxTeclado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dazz Rapidfire", "HyperX Mars", "HyperX Mecânico Alloy FPS", "HyperX Alloy FPS Pro Red", "Redragon Harpe RGB K503RGB", "T MasterKeys Pro M RGB", "Warrior Gamer Laser", " Warrior TC208" }));
 
         jLabel6.setText("Mouse:");
 
@@ -378,6 +465,11 @@ public class LojaInformatica extends javax.swing.JFrame {
 
         buttonExcluir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         buttonExcluir.setText("Excluir");
+        buttonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirActionPerformed(evt);
+            }
+        });
 
         buttonAlterar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         buttonAlterar.setText("Alterar");
@@ -426,6 +518,15 @@ public class LojaInformatica extends javax.swing.JFrame {
             }
         });
 
+        buttonAtualizarTabela.setText("Atualizar Tabela");
+        buttonAtualizarTabela.setMaximumSize(new java.awt.Dimension(121, 40));
+        buttonAtualizarTabela.setMinimumSize(new java.awt.Dimension(121, 40));
+        buttonAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAtualizarTabelaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -443,7 +544,9 @@ public class LojaInformatica extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(buttonInserirAlteracao))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(buttonAtualizarTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -480,7 +583,7 @@ public class LojaInformatica extends javax.swing.JFrame {
                                 .addComponent(jLabel17)
                                 .addGap(18, 18, 18)
                                 .addComponent(fieldHeadSet, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,7 +616,9 @@ public class LojaInformatica extends javax.swing.JFrame {
                     .addComponent(fieldTeclado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(fieldHeadSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldGabinete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(fieldGabinete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonAtualizarTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Registros Banco de Dados"));
@@ -560,7 +665,7 @@ public class LojaInformatica extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -668,9 +773,9 @@ public class LojaInformatica extends javax.swing.JFrame {
 
         if (fieldPesquisar.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Campo de pesquisar em branco", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            carregarTabela();
         } else {
 
-            buttonAlterar.setEnabled(true);
             buttonInserirAlteracao.setVisible(false);
 
             ArrayList<Produtos> listaProdutos = ProdutosDAO.buscarProduto(fieldPesquisar.getText());
@@ -720,6 +825,9 @@ public class LojaInformatica extends javax.swing.JFrame {
                     fieldTeclado.setEnabled(false);
                     fieldHeadSet.setEnabled(false);
 
+                    buttonAlterar.setEnabled(true);
+                    buttonExcluir.setEnabled(true);
+
                     for (int i = 0; i < tabelaProdutos.getColumnCount(); i++) {
                         fieldComputador.setText(tabelaProdutos.getValueAt(i, 1).toString());
                         fieldHD.setText(tabelaProdutos.getValueAt(i, 2).toString());
@@ -732,9 +840,13 @@ public class LojaInformatica extends javax.swing.JFrame {
                         fieldHeadSet.setText(tabelaProdutos.getValueAt(i, 9).toString());
                     }
 
-                }
+                } 
+                
 
             } catch (NumberFormatException e) {
+                 buttonAlterar.setEnabled(false);
+                 buttonExcluir.setEnabled(false);
+                 limparCampos();
                 System.out.print("");
             } catch (NullPointerException e) {
                 System.out.print("");
@@ -768,6 +880,7 @@ public class LojaInformatica extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Informe um ID para atualizar!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             System.out.print("");
         } catch (NullPointerException e) {
             System.out.print("");
@@ -802,20 +915,54 @@ public class LojaInformatica extends javax.swing.JFrame {
 
         try {
 
-            ProdutosDAO produtosDAO = new ProdutosDAO();
-            produtosDAO.atualizarProduto(produtos);
-            JOptionPane.showMessageDialog(this, "Alterado com Sucesso!", "Alterado", JOptionPane.INFORMATION_MESSAGE);
-            buttonInserirAlteracao.setVisible(false);
-            buttonAlterar.setEnabled(true);
-            buttonExcluir.setEnabled(true);
-            limparCampos();
-            carregarTabela();
+            if (validarCampos() == true) {
+                ProdutosDAO produtosDAO = new ProdutosDAO();
+                produtosDAO.atualizarProduto(produtos);
+                JOptionPane.showMessageDialog(this, "Alterado com Sucesso!", "Alterado", JOptionPane.INFORMATION_MESSAGE);
+                buttonInserirAlteracao.setVisible(false);
+                limparCampos();
+                carregarTabela();
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao alterar!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_buttonInserirAlteracaoActionPerformed
+
+    private void buttonAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAtualizarTabelaActionPerformed
+        carregarTabela();
+    }//GEN-LAST:event_buttonAtualizarTabelaActionPerformed
+
+    private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
+        try {
+            int pesquisar = Integer.parseInt(fieldPesquisar.getText());
+
+            if (pesquisar > 0) {
+
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir essa compra?");
+                if (resposta == 0) {
+                    ProdutosDAO produtosDAO = new ProdutosDAO();
+                    produtosDAO.excluirProduto(pesquisar);
+                    JOptionPane.showMessageDialog(this, "Compra Excluida com Sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    buttonAlterar.setEnabled(false);
+                    buttonExcluir.setEnabled(false);
+                    limparCampos();
+                    carregarTabela();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Compra não deletada!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir compra, digite um ID!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException e) {
+            System.out.print("");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print("");
+        }
+    }//GEN-LAST:event_buttonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -855,6 +1002,7 @@ public class LojaInformatica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdicionarCarrinho;
     private javax.swing.JButton buttonAlterar;
+    private javax.swing.JButton buttonAtualizarTabela;
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonFinalizarCompra;
     private javax.swing.ButtonGroup buttonGroup1;
